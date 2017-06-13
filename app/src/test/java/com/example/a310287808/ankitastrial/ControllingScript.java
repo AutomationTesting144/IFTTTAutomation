@@ -60,8 +60,8 @@ public class ControllingScript {
         //All Lights ON or OFF
 
 
-//        AllLightsOFF AllOFF = new AllLightsOFF();
-//        AllOFF.AllLightsONorOFF(driver);
+        AllLightsOFF AllOFF = new AllLightsOFF();
+        AllOFF.AllLightsONorOFF(driver);
 //
 //        AllLightsON AllON = new AllLightsON();
 //        AllON.AllLightsONorOFF(driver);
@@ -81,8 +81,8 @@ public class ControllingScript {
 //        DimmingLights DimLights=new DimmingLights();
 //        DimLights.DimmingLights(driver);
 
-        LightsNameChange NameChange=new LightsNameChange();
-        NameChange.LightsNameChange(driver);
+//        LightsNameChange NameChange=new LightsNameChange();
+//        NameChange.LightsNameChange(driver);
 
         //Check new whitelist
         // NewWhiteListCreation nwc = new NewWhiteListCreation();
