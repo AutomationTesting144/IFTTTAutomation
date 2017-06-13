@@ -85,7 +85,7 @@ public class AllLightsOFF {
         if(lightStatusReturned=="false"){
             Result = "PASS";
             Comments = "All Lights Turned OFF";
-            System.out.println("Result: "+Result+"Comment: "+Comments);
+            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
 
 
         }else{
@@ -96,7 +96,7 @@ public class AllLightsOFF {
 
                     finalURLIndLight = "http://" + IPAddress + "/" + HueUserName + "/" + HueBridgeIndLightType
                             +"/"+lights.getKey();
-                    System.out.println(finalURLIndLight);
+                    //System.out.println(finalURLIndLight);
 
                     URL url1 = new URL(finalURLIndLight);
                     connection = (HttpURLConnection) url1.openConnection();
@@ -131,7 +131,8 @@ public class AllLightsOFF {
                         lightCounter++;
 
                         sb.append(lightName);
-                        sb.append(",");
+
+                        sb.append("\n");
 
                     }
                     else{
@@ -141,8 +142,8 @@ public class AllLightsOFF {
                 }
 
                Result = "Fail";
-                Comments = sb.toString() + " : Lights are ON";
-            System.out.println("Result: "+Result+"Comment: "+Comments);
+                Comments = "Following Lights are still ON:"+"\n"+sb.toString();
+            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
             }
 
 
