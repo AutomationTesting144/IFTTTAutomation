@@ -2,6 +2,8 @@ package com.example.a310287808.ankitastrial;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,12 +41,12 @@ public class AllLightsOFF {
         driver.navigate().back();
         System.out.println("Entered");
 
-                //driver.findElement(By.id("com.ifttt.ifttt:id/widget_do_small_recipe_btn")).click();
-//        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1002,1158][1158,1276]']"));
-//        abc.click();
+        driver.findElement(By.id("com.ifttt.ifttt:id/widget_do_small_recipe_btn")).click();
+        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1002,1158][1158,1276]']"));
+        abc.click();
         System.out.println("Clicked");
 
-        // driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
         TimeUnit.SECONDS.sleep(20);
 
         HttpURLConnection connection;
