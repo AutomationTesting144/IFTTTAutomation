@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +13,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import io.appium.java_client.android.AndroidDriver;
 
 
@@ -143,8 +141,8 @@ public class AllLightsOFF {
 
                 }
 
-               Result = "Fail";
-                Comments = "Following Lights are still ON:"+"\n"+sb.toString();
+            Result = "Fail";
+            Comments = "Following Lights are still ON:"+"\n"+sb.toString();
             System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
             }
 
