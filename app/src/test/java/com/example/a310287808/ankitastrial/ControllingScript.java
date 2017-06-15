@@ -60,8 +60,8 @@ public class ControllingScript {
         //All Lights ON or OFF
 
 
-        AllLightsOFF AllOFF = new AllLightsOFF();
-        AllOFF.AllLightsONorOFF(driver);
+//        AllLightsOFF AllOFF = new AllLightsOFF();
+//        AllOFF.AllLightsONorOFF(driver);
 //
 //        AllLightsON AllON = new AllLightsON();
 //        AllON.AllLightsONorOFF(driver);
@@ -83,6 +83,13 @@ public class ControllingScript {
 
 //        LightsNameChange NameChange=new LightsNameChange();
 //        NameChange.LightsNameChange(driver);
+////
+//        LightDelete delete=new LightDelete();
+//        delete.LightDelete(driver);
+
+        LightAddition addition=new LightAddition();
+        addition.LightAddition(driver);
+
 
         //Check new whitelist
         // NewWhiteListCreation nwc = new NewWhiteListCreation();
