@@ -2,11 +2,10 @@ package com.example.a310287808.ankitastrial;
 
 
 import android.app.Activity;
-import android.widget.Button;
-import android.widget.Spinner;
 
 import org.json.JSONException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,10 +23,6 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class LightsNameChange extends Activity {
 
-
-    private Spinner spinner1, spinner2;
-
-    private Button btnSubmit;
     MobileElement listItem;
     public void LightsNameChange (AndroidDriver driver) throws IOException, JSONException, InterruptedException  {
         driver.navigate().back();
@@ -42,7 +37,16 @@ public class LightsNameChange extends Activity {
         TimeUnit.SECONDS.sleep(5);
         driver.findElement(By.id("com.philips.lighting.hue2:id/form_field_text")).click();
         driver.findElement(By.id("com.philips.lighting.hue2:id/form_field_text")).sendKeys("Testing Lamp"+"\n");
-        TimeUnit.SECONDS.sleep(5);
+
+        Dimension size = driver.manage().window().getSize();
+        System.out.println(size);
+//        int point_to_tapH = (int) (size.getHeight() * 0.5);
+//        System.out.println(point_to_tapH);
+//        int point_to_tapW = (int) (size.getWidth() * 0.5);
+//        System.out.println(point_to_tapW);
+//        System.out.println("Clicking");
+//        //swt.tap(1180, 1350);
+
         driver.findElement(By.id("com.philips.lighting.hue2:id/details_device_icon")).click();
         driver.findElement(By.xpath("//android.widget.ImageButton[@bounds='[16,48][128,160]']")).click();
         driver.findElement(By.xpath("//android.widget.ImageButton[@bounds='[16,48][128,160]']")).click();
