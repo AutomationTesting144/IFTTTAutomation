@@ -1,6 +1,7 @@
 package com.example.a310287808.ankitastrial;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -35,19 +36,25 @@ public class ColorChangeSingle
     public String StrMin;
     public String StrHrs;
     public String TimeSys1;
+    public String Result;
+    public String Comments;
+    public StringBuffer br;
 
     AndroidDriver driver;
     Dimension size;
+    //In the device under IFTTT application, An applet is already created and single light is assigned to it to test color changing functionality
 
     public  void ColorChangeSingle(AndroidDriver driver) throws IOException, JSONException, InterruptedException, ParseException {
 
         driver.navigate().back();
+        //Clicking on the home button of the device
         WebElement abc = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[544,1670][656,1782]']"));
         abc.click();
-
+        // Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
         WebElement abc2 = driver.findElement(By.xpath("//android.widget.LinearLayout[@bounds='[900,1712][1200,1824]']"));
         abc2.click();
+        //Scrolling down the page to get the search box
         driver.findElement(By.xpath("//android.widget.TextView[@bounds='[900,1772][1200,1806]']"));
         size = driver.manage().window().getSize();
 
@@ -61,23 +68,23 @@ public class ColorChangeSingle
         //Swipe from Top to Bottom.
         driver.swipe(startx, endy, startx, starty, 3000);
         Thread.sleep(2000);
-
+        // clicking on search box
         driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).click();
+        //Entering the name of the applet created for testing the color changing functionality
         driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).sendKeys("color on Hue color lamp 11");
         driver.findElement(By.id("com.ifttt.ifttt:id/applet_title")).click();
+        //Clicking on the dit button to set the time at which the color will be changed
         driver.findElement(By.id("com.ifttt.ifttt:id/edit")).click();
         WebElement abc1 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[288,1490][912,1524]']"));
         abc1.click();
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("android.view.View")));
-
+// getting the real time from system's time
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
         String TimeSys=sdf.format(cal.getTime());
         String hrs=sdf.format(cal.getTime()).substring(0,2);
         String min=sdf.format(cal.getTime()).substring(3,5);
         String AmPm=sdf.format(cal.getTime()).substring(6,8);
-
-
         Integer Minutes = Integer.valueOf(min);
         Integer hours = Integer.valueOf(hrs);
         DecimalFormat df = new DecimalFormat("00");
@@ -125,13 +132,13 @@ public class ColorChangeSingle
         abc3.click();
         driver.navigate().back();
         driver.navigate().back();
+        driver.navigate().back();
+        driver.navigate().back();
+        driver.navigate().back();
 
         String TimeCode=StrHrs+":"+StrMin+" "+AmPm;
         System.out.println(TimeCode);
         System.out.println(TimeSys);
-
-
-
 
         do {
             HttpURLConnection connection;
@@ -145,7 +152,7 @@ public class ColorChangeSingle
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
-            StringBuffer br = new StringBuffer();
+             br = new StringBuffer();
 
             String line = " ";
             while ((line = reader.readLine()) != null) {
@@ -153,6 +160,7 @@ public class ColorChangeSingle
             }
             String output = br.toString();
             //System.out.println(output);
+
 
             ColorChangeSingleStatus SingleStatus = new ColorChangeSingleStatus();
             lightStatusReturned = SingleStatus.ColorChangeSingleStatus(output);
@@ -171,13 +179,30 @@ public class ColorChangeSingle
         String Yval=lightStatusReturned.substring(8,13);
         System.out.println(Xval);
         System.out.println(Yval);
-        String Xred="0.4091";
-        String Yred="0.518";
+        String Xgreen="0.4091";
+        String Ygreen="0.518";
 
-        if ((Xval.equals(Xred)) && (Yval.equals(Yred))) {
-            System.out.println("Test PASS. Color changed to Green");
+        String output1 = br.toString();
+        JSONObject jsonObject = new JSONObject(output1);
+
+        Object ob = jsonObject.get("state");
+        String newString = ob.toString();
+        Object lightNameObject = jsonObject.get("name");
+        String lightName = lightNameObject.toString();
+
+        br.append(lightName);
+        br.append("\n");
+
+        if ((Xval.equals(Xgreen)) && (Yval.equals(Ygreen))) {
+            Result = "PASS";
+            Comments = "Color changed to GREEN for the selected light"+"\n"+lightName;
+            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
         } else {
-            System.out.println("Test FAIL. Color is not Green");
+
+
+            Result = "Fail";
+            Comments = "Light is not GREEN in color:"+"\n"+lightName;
+            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
         }
 
 
