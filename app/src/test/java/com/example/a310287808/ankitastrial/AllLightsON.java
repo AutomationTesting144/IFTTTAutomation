@@ -137,7 +137,7 @@ public class AllLightsON {
                 String newString = ob.toString();
                 Object lightNameObject = jsonObject.get("name");
                 String lightName = lightNameObject.toString();
-                System.out.println(lightName);
+                //System.out.println(lightName);
 
                 JSONObject jsonObject1 = new JSONObject(newString);
                 Object ob1 = jsonObject1.get("on");
