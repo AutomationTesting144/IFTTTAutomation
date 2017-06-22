@@ -1,16 +1,25 @@
 package com.example.a310287808.ankitastrial;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -29,12 +38,14 @@ public class ColorChangeAll {
     public String finalURL;
     public String finalURLIndLight;
     public String lightStatusReturned;
-    public String Result;
+    public String Status;
     public String Comments;
     public int lightCounter=0;
     public String x;
+    public String ActualResult;
+    public String ExpectedResult;
 
-    public void ColorChangeAll(AndroidDriver driver) throws IOException, JSONException, InterruptedException {
+    public void ColorChangeAll(AndroidDriver driver,String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException {
         driver.navigate().back();
         // Widget for changing color using notepad application is already created in the device as a precondition. This code will click on the widget and check
         // whether all the lights which are connected to the bridge are switched off or not.
@@ -71,15 +82,16 @@ public class ColorChangeAll {
         ColorChangeAllStatus ColorStatus = new ColorChangeAllStatus();
         lightStatusReturned = ColorStatus.ColorChangeStatus(output);
         HashMap<String,Integer> lightIDs = new HashMap<>();
-        lightIDs.put("1",1);
-        lightIDs.put("4",2);
-        lightIDs.put("26",3);
-        lightIDs.put("27",4);
-        lightIDs.put("28",5);
-        lightIDs.put("45",6);
-        lightIDs.put("30",7);
-        lightIDs.put("29",8);
-        lightIDs.put("31",9);
+        lightIDs.put("26",1);
+        lightIDs.put("27",2);
+        lightIDs.put("28",3);
+        lightIDs.put("30",4);
+        lightIDs.put("44",5);
+        lightIDs.put("46",6);
+        lightIDs.put("47",7);
+        lightIDs.put("48",8);
+        lightIDs.put("49",9);
+        lightIDs.put("50",10);
 
         StringBuffer sb = new StringBuffer();
 
@@ -92,17 +104,15 @@ public class ColorChangeAll {
 
         boolean finalResult=(Xval.equals(Xred)) && (Yval.equals(Yred));
         if (finalResult==true){
-            Result = "PASS";
-            Comments = "Color changed to RED for all lights";
-            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
-
-
+            Status = "1";
+            ActualResult = "Color changed to RED for all lights after clicking on widget";
+            Comments = "NA";
+            ExpectedResult= "Lights color should change to RED after clicking on the widget";
+            System.out.println("Result: " + Status + "\n" + "Comment: " + Comments+ "\n"+"Actual Result: "+ActualResult+ "\n"+"Expected Result: "+ExpectedResult);
         }else
             {
 
                 for(Map.Entry<String,Integer> lights : lightIDs.entrySet()) {
-
-
                     finalURLIndLight = "http://" + IPAddress + "/" + HueUserName + "/" + HueBridgeIndLightType
                             + "/" + lights.getKey();
 
@@ -123,6 +133,7 @@ public class ColorChangeAll {
                         br1.append(line1);
                     }
                     String output1 = br1.toString();
+                    //System.out.println(output1);
                     JSONObject jsonObject = new JSONObject(output1);
                     Object ob = jsonObject.get("state");
                     String newString = ob.toString();
@@ -153,12 +164,56 @@ public class ColorChangeAll {
                     }
 
                 }
-            Result = "Fail";
-            Comments = "Following Lights are still not RED in color:"+"\n"+sb.toString();
-            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
-
+                Status = "0";
+                ActualResult ="Following Lights are not RED in color:"+"\n"+sb.toString();
+                Comments = "FAIL:Lights are not changed to RED color";
+                ExpectedResult="Lights color should change to RED after clicking on the widget";
+                System.out.println("Result: " + Status + "\n" + "Comment: " + Comments+ "\n"+"Actual Result: "+ActualResult+ "\n"+"Expected Result: "+ExpectedResult);
         }
+        storeResultsExcel(Status, ActualResult, Comments, fileName, ExpectedResult,APIVersion,SWVersion);
+    }
+    public String CurrentdateTime;
+    public int nextRowNumber;
+    public void storeResultsExcel(String excelStatus, String excelActualResult, String excelComments, String resultFileName, String ExcelExpectedResult
+            ,String resultAPIVersion, String resultSWVersion) throws IOException {
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        CurrentdateTime = sdf.format(cal.getTime());
+        FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
+        HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
+        nextRowNumber=workbook.getSheetAt(0).getLastRowNum();
+        nextRowNumber++;
+        HSSFSheet sheet = workbook.getSheetAt(0);
+
+        HSSFRow row2 = sheet.createRow(nextRowNumber);
+        HSSFCell r2c1 = row2.createCell(0);
+        r2c1.setCellValue(CurrentdateTime);
+
+        HSSFCell r2c2 = row2.createCell(1);
+        r2c2.setCellValue("LightsControl 004");
+
+        HSSFCell r2c3 = row2.createCell(2);
+        r2c3.setCellValue(excelStatus);
+
+        HSSFCell r2c4 = row2.createCell(3);
+        r2c4.setCellValue(excelActualResult);
+
+        HSSFCell r2c5 = row2.createCell(4);
+        r2c5.setCellValue(excelComments);
+
+        HSSFCell r2c6 = row2.createCell(5);
+        r2c6.setCellValue(resultAPIVersion);
+
+        HSSFCell r2c7 = row2.createCell(6);
+        r2c7.setCellValue(resultSWVersion);
+
+        fsIP.close();
+        FileOutputStream out =
+                new FileOutputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
+        workbook.write(out);
+        out.close();
+
 
     }
-
 }

@@ -30,13 +30,16 @@ public class IndividualLightONOFFTest {
         HttpURLConnection connection;
 
         HashMap lightIDMap = new HashMap<Integer,String>();
-        lightIDMap.put(1,"1");
-        lightIDMap.put(2,"2");
-        lightIDMap.put(3,"4");
-        lightIDMap.put(4,"5");
-        lightIDMap.put(5,"29");
-        lightIDMap.put(6,"59");
-        lightIDMap.put(7,"60");
+        lightIDMap.put("26",1);
+        lightIDMap.put("27",2);
+        lightIDMap.put("28",3);
+        lightIDMap.put("30",4);
+        lightIDMap.put("44",5);
+        lightIDMap.put("46",6);
+        lightIDMap.put("47",7);
+        lightIDMap.put("48",8);
+        lightIDMap.put("49",9);
+        lightIDMap.put("50",10);
 
 
         for(Object lightValue : lightIDMap.values()) {

@@ -1,5 +1,9 @@
 package com.example.a310287808.ankitastrial;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
@@ -7,8 +11,10 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +24,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import io.appium.java_client.android.AndroidDriver;
 
 /**
@@ -30,21 +35,23 @@ public class ColorChangeSingle
 
     public String IPAddress = "192.168.86.21/api";
     public String HueUserName = "DtPRqP9ZCbVK0sradKByhPs3BwlIfR5bNX9zamFk";
-    public String HueBridgeParameterType = "lights/1";
+    public String HueBridgeParameterType = "lights/26";
     public String finalURL;
     public String lightStatusReturned;
     public String StrMin;
     public String StrHrs;
     public String TimeSys1;
-    public String Result;
+    public String Status;
     public String Comments;
     public StringBuffer br;
+    public String ActualResult;
+    public String ExpectedResult;
 
     AndroidDriver driver;
     Dimension size;
-    //In the device under IFTTT application, An applet is already created and single light is assigned to it to test color changing functionality
+    //In IFTTT application, An applet is already created and single light is assigned to it to test color changing functionality
 
-    public  void ColorChangeSingle(AndroidDriver driver) throws IOException, JSONException, InterruptedException, ParseException {
+    public  void ColorChangeSingle(AndroidDriver driver,String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException, ParseException {
 
         driver.navigate().back();
         //Clicking on the home button of the device
@@ -55,7 +62,7 @@ public class ColorChangeSingle
         WebElement abc2 = driver.findElement(By.xpath("//android.widget.LinearLayout[@bounds='[900,1712][1200,1824]']"));
         abc2.click();
         //Scrolling down the page to get the search box
-        driver.findElement(By.xpath("//android.widget.TextView[@bounds='[900,1772][1200,1806]']"));
+        driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1026,1724][1074,1772]']"));
         size = driver.manage().window().getSize();
 
         int starty = (int) (size.height * 0.80);
@@ -78,7 +85,7 @@ public class ColorChangeSingle
         WebElement abc1 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[288,1490][912,1524]']"));
         abc1.click();
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("android.view.View")));
-// getting the real time from system's time
+        // getting the real time from system's time
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
         String TimeSys=sdf.format(cal.getTime());
@@ -89,39 +96,35 @@ public class ColorChangeSingle
         Integer hours = Integer.valueOf(hrs);
         DecimalFormat df = new DecimalFormat("00");
 
-        System.out.println("Entering Loop");
-        if ((Minutes>=0) && (Minutes<=14)){
+        if ((Minutes>=55) && (Minutes<=10)){
             Minutes=15;
-            System.out.println(Minutes);
-        }
-        else if ((Minutes>14) && (Minutes<=29)){
-            Minutes=30;
-            System.out.println(Minutes);
 
         }
-        else if ((Minutes>29) && (Minutes<=44)){
-            Minutes=45;
-            System.out.println(Minutes);
+        else if ((Minutes>10) && (Minutes<=25)){
+            Minutes=30;
+
+
         }
-        else if((Minutes>44) && (Minutes<=59)){
+        else if ((Minutes>25) && (Minutes<=40)){
+            Minutes=45;
+
+        }
+        else if((Minutes>40) && (Minutes<=55)){
             Minutes=00;
             if (hours==12){
                 hours=1;
             }
             else{hours=hours+1;}
-            System.out.println(hours);
+
         }
-        System.out.println("Out of Loop");
+
 
         if(hours<10){
             StrHrs=(df.format(hours));
-            System.out.println(StrHrs);
         }
         else {
             StrHrs=String.valueOf(hours);
-            System.out.println(StrHrs);
         }
-        System.out.println(StrHrs);
         Minutes=Minutes+2;
         //Minutes=Minutes+1;
         StrMin=(df.format(Minutes));
@@ -177,8 +180,8 @@ public class ColorChangeSingle
 
         String Xval=lightStatusReturned.substring(1,7);
         String Yval=lightStatusReturned.substring(8,13);
-        System.out.println(Xval);
-        System.out.println(Yval);
+//        System.out.println(Xval);
+//        System.out.println(Yval);
         String Xgreen="0.4091";
         String Ygreen="0.518";
 
@@ -194,17 +197,66 @@ public class ColorChangeSingle
         br.append("\n");
 
         if ((Xval.equals(Xgreen)) && (Yval.equals(Ygreen))) {
-            Result = "PASS";
-            Comments = "Color changed to GREEN for the selected light"+"\n"+lightName;
-            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
+            Status = "1";
+            ActualResult ="Color changed to GREEN for the selected light"+"\n"+lightName;
+            Comments = "NA";
+            ExpectedResult= " Light: "+lightName+" should change to color GREEN after applet executed successfully";
+            System.out.println("Result: " + Status + "\n" + "Comment: " + Comments+ "\n"+"Actual Result: "+ActualResult+ "\n"+"Expected Result: "+ExpectedResult);
+
         } else {
+            Status = "0";
+            ActualResult ="Color is not changed to GREEN for the selected light:"+"\n"+lightName;
+            Comments = "FAIL:Light is not GREEN";
+            ExpectedResult= " Light: "+lightName+" should change to color GREEN after applet executed successfully";
+            System.out.println("Result: " + Status + "\n" + "Comment: " + Comments+ "\n"+"Actual Result: "+ActualResult+ "\n"+"Expected Result: "+ExpectedResult);
 
-
-            Result = "Fail";
-            Comments = "Light is not GREEN in color:"+"\n"+lightName;
-            System.out.println("Result: "+Result+"\n"+"Comment: "+Comments);
         }
+        driver.navigate().back();
+        driver.navigate().back();
+        driver.navigate().back();
+        storeResultsExcel(Status, ActualResult, Comments, fileName, ExpectedResult,APIVersion,SWVersion);
 
+    }
+    public String CurrentdateTime;
+    public int nextRowNumber;
+    public void storeResultsExcel(String excelStatus, String excelActualResult, String excelComments, String resultFileName, String ExcelExpectedResult
+            ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        CurrentdateTime = sdf.format(cal.getTime());
+        FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
+        HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
+        nextRowNumber=workbook.getSheetAt(0).getLastRowNum();
+        nextRowNumber++;
+        HSSFSheet sheet = workbook.getSheetAt(0);
+
+        HSSFRow row2 = sheet.createRow(nextRowNumber);
+        HSSFCell r2c1 = row2.createCell(0);
+        r2c1.setCellValue(CurrentdateTime);
+
+        HSSFCell r2c2 = row2.createCell(1);
+        r2c2.setCellValue("LightsControl 005");
+
+        HSSFCell r2c3 = row2.createCell(2);
+        r2c3.setCellValue(excelStatus);
+
+        HSSFCell r2c4 = row2.createCell(3);
+        r2c4.setCellValue(excelActualResult);
+
+        HSSFCell r2c5 = row2.createCell(4);
+        r2c5.setCellValue(excelComments);
+
+        HSSFCell r2c6 = row2.createCell(5);
+        r2c6.setCellValue(resultAPIVersion);
+
+        HSSFCell r2c7 = row2.createCell(6);
+        r2c7.setCellValue(resultSWVersion);
+
+        fsIP.close();
+        FileOutputStream out =
+                new FileOutputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
+        workbook.write(out);
+        out.close();
     }
 }
