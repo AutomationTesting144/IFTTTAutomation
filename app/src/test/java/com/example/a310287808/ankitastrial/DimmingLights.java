@@ -6,8 +6,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,8 +46,8 @@ public class DimmingLights {
     public void DimmingLights(AndroidDriver driver,String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException {
         driver.navigate().back();
         //Clicking on the widget created for dimming the lights
-        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[234,198][390,316]']"));
-        abc.click();
+//        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[234,198][390,316]']"));
+//        abc.click();
 
         TimeUnit.MINUTES.sleep(1);
         //Making the connection with bridge as well as with API
@@ -81,7 +79,7 @@ public class DimmingLights {
         lightIDs.put("27",2);
         lightIDs.put("28",3);
         lightIDs.put("30",4);
-        lightIDs.put("44",5);
+      //  lightIDs.put("44",5);
         lightIDs.put("46",6);
         lightIDs.put("47",7);
         lightIDs.put("48",8);
@@ -156,7 +154,7 @@ public class DimmingLights {
             ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS aa");
         CurrentdateTime = sdf.format(cal.getTime());
         FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
         HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
@@ -169,7 +167,7 @@ public class DimmingLights {
         r2c1.setCellValue(CurrentdateTime);
 
         HSSFCell r2c2 = row2.createCell(1);
-        r2c2.setCellValue("LightsControl 006");
+        r2c2.setCellValue("6");
 
         HSSFCell r2c3 = row2.createCell(2);
         r2c3.setCellValue(excelStatus);

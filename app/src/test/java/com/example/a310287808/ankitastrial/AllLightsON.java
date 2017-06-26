@@ -101,7 +101,7 @@ public class AllLightsON {
         lightIDs.put("27",2);
         lightIDs.put("28",3);
         lightIDs.put("30",4);
-        lightIDs.put("44",5);
+       // lightIDs.put("44",5);
         lightIDs.put("46",6);
         lightIDs.put("47",7);
         lightIDs.put("48",8);
@@ -180,7 +180,7 @@ public class AllLightsON {
             ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS aa");
         CurrentdateTime = sdf.format(cal.getTime());
         FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
         HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
@@ -193,7 +193,7 @@ public class AllLightsON {
         r2c1.setCellValue(CurrentdateTime);
 
         HSSFCell r2c2 = row2.createCell(1);
-        r2c2.setCellValue("LightsControl 003");
+        r2c2.setCellValue("3");
 
         HSSFCell r2c3 = row2.createCell(2);
         r2c3.setCellValue(excelStatus);

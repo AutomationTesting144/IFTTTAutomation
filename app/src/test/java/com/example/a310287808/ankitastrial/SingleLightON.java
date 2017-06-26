@@ -57,7 +57,7 @@ public class SingleLightON {
         //Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
         //Clicking on search button
-        WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[300,1772][600,1806]']"));
+        WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[407,1775][493,1809]']"));
         abc4.click();
         TimeUnit.SECONDS.sleep(5);
 
@@ -86,17 +86,17 @@ public class SingleLightON {
         DecimalFormat df = new DecimalFormat("00");
 
 
-        if ((Minutes >= 56) && (Minutes <= 10)) {
+        if ((Minutes >= 0) && (Minutes <= 15)) {
             Minutes = 15;
 
-        } else if ((Minutes > 10) && (Minutes <= 25)) {
+        } else if ((Minutes > 15) && (Minutes <= 29)) {
             Minutes = 30;
 
 
-        } else if ((Minutes > 25) && (Minutes <= 40)) {
+        } else if ((Minutes > 29) && (Minutes <= 44)) {
             Minutes = 45;
 
-        } else if ((Minutes > 40) && (Minutes <= 55)) {
+        } else if ((Minutes > 44) && (Minutes <= 59)) {
             Minutes = 00;
             hours = hours + 1;
         }
@@ -193,7 +193,7 @@ public class SingleLightON {
             ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS aa");
         CurrentdateTime = sdf.format(cal.getTime());
         FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
         HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
@@ -206,7 +206,7 @@ public class SingleLightON {
         r2c1.setCellValue(CurrentdateTime);
 
         HSSFCell r2c2 = row2.createCell(1);
-        r2c2.setCellValue("LightsControl 001");
+        r2c2.setCellValue("1");
 
         HSSFCell r2c3 = row2.createCell(2);
         r2c3.setCellValue(excelStatus);

@@ -47,7 +47,8 @@ public class SingleLightOFF {
         driver.findElement(By.xpath("//android.widget.TextView[@text='Facebook']")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //clicking on status button to add a new status
-        driver.findElement(By.id("com.facebook.katana:id/feed_composer_status_button")).click();
+        driver.findElement(By.xpath("//android.view.ViewGroup[@bounds='[64,160][1136,304]']")).click();
+
         //composing a message
         driver.findElement(By.id("com.facebook.katana:id/composer_status_text")).click();
         //using random number generator
@@ -114,7 +115,7 @@ public class SingleLightOFF {
             ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS aa");
         CurrentdateTime = sdf.format(cal.getTime());
         FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
         HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
@@ -127,7 +128,7 @@ public class SingleLightOFF {
         r2c1.setCellValue(CurrentdateTime);
 
         HSSFCell r2c2 = row2.createCell(1);
-        r2c2.setCellValue("LightsControl 007");
+        r2c2.setCellValue("7");
 
         HSSFCell r2c3 = row2.createCell(2);
         r2c3.setCellValue(excelStatus);

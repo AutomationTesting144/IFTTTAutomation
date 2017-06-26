@@ -59,7 +59,7 @@ public class ColorChangeSingle
         abc.click();
         // Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
-        WebElement abc2 = driver.findElement(By.xpath("//android.widget.LinearLayout[@bounds='[900,1712][1200,1824]']"));
+        WebElement abc2 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[975,1775][1124,1809]']"));
         abc2.click();
         //Scrolling down the page to get the search box
         driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1026,1724][1074,1772]']"));
@@ -96,20 +96,20 @@ public class ColorChangeSingle
         Integer hours = Integer.valueOf(hrs);
         DecimalFormat df = new DecimalFormat("00");
 
-        if ((Minutes>=55) && (Minutes<=10)){
+        if ((Minutes>=0) && (Minutes<=15)){
             Minutes=15;
 
         }
-        else if ((Minutes>10) && (Minutes<=25)){
+        else if ((Minutes>15) && (Minutes<=29)){
             Minutes=30;
 
 
         }
-        else if ((Minutes>25) && (Minutes<=40)){
+        else if ((Minutes>29) && (Minutes<=44)){
             Minutes=45;
 
         }
-        else if((Minutes>40) && (Minutes<=55)){
+        else if((Minutes>44) && (Minutes<=59)){
             Minutes=00;
             if (hours==12){
                 hours=1;
@@ -223,7 +223,7 @@ public class ColorChangeSingle
             ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS aa");
         CurrentdateTime = sdf.format(cal.getTime());
         FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
         HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
@@ -236,7 +236,7 @@ public class ColorChangeSingle
         r2c1.setCellValue(CurrentdateTime);
 
         HSSFCell r2c2 = row2.createCell(1);
-        r2c2.setCellValue("LightsControl 005");
+        r2c2.setCellValue("5");
 
         HSSFCell r2c3 = row2.createCell(2);
         r2c3.setCellValue(excelStatus);
