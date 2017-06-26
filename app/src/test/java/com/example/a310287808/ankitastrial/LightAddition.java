@@ -152,7 +152,7 @@ public class LightAddition extends Activity {
         //Confirming the presence of applet
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Press a button to make your Hue lights color loop']")));
         //Selecting Applet
-        TimeUnit.MINUTES.sleep(5);
+        TimeUnit.MINUTES.sleep(8);
         driver.findElement(By.xpath("//android.widget.TextView[@text='Press a button to make your Hue lights color loop']")).click();
         //Clicking on edit button
         driver.findElement(By.id("com.ifttt.ifttt:id/edit")).click();

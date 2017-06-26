@@ -6,6 +6,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,8 +48,8 @@ public class DimmingLights {
     public void DimmingLights(AndroidDriver driver,String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException {
         driver.navigate().back();
         //Clicking on the widget created for dimming the lights
-//        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[234,198][390,316]']"));
-//        abc.click();
+        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[234,198][390,316]']"));
+        abc.click();
 
         TimeUnit.MINUTES.sleep(1);
         //Making the connection with bridge as well as with API

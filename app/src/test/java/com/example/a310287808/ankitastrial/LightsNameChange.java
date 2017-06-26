@@ -76,6 +76,7 @@ public class LightsNameChange extends Activity {
         abc.click();
         //opening ifttt
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
+        TimeUnit.SECONDS.sleep(5);
         //clicking on search button
         WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[407,1775][493,1809]']"));
         abc4.click();

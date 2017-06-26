@@ -28,7 +28,6 @@ public class ControllingScript {
     public String filename;
     public int Month;
     public int Date;
-    //WebDriver driver;
     AndroidDriver driver;
     Dimension size;
     @Before
@@ -38,14 +37,9 @@ public class ControllingScript {
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android");
         capabilities.setCapability(CapabilityType.VERSION, "6.0.1");
         capabilities.setCapability("platformName", "Android");
-        //capabilities.setCapability("autoAcceptAlters",true);
         capabilities.setCapability("appPackage", "com.google.android.calculator");
         capabilities.setCapability("appActivity", "com.android.calculator2.Calculator");
         capabilities.setCapability("newCommandTimeout", "45000");
-        //capabilities.setCapability("appActivity", "com.ifttt.ifttt.doandroid.WidgetSearchActivity");
-
-//        driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-//        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -80,6 +74,21 @@ public class ControllingScript {
                     break;
                 }else{
                     oldFiles[i].renameTo(new File(ArchiveFolder + "\\" + oldFiles[i].getName()));
+                    filename = "C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\IFTTTAutomationResults-"+Currentdate+".xls";
+                    //System.out.println(filename);
+                    workbook = new HSSFWorkbook();
+                    sheet1 = workbook.createSheet(sdf.format(cal.getTime()));
+                    HSSFRow rowhead = sheet1.createRow((short)0);
+                    rowhead.createCell((short)2).setCellValue(new HSSFRichTextString("isPassed"));
+                    rowhead.createCell((short)1).setCellValue(new HSSFRichTextString("Test Case Id"));
+                    rowhead.createCell((short)0).setCellValue(new HSSFRichTextString("RunDateTime"));
+                    rowhead.createCell((short)3).setCellValue(new HSSFRichTextString("Actual Result"));
+                    rowhead.createCell((short)4).setCellValue(new HSSFRichTextString("Failure Reason"));
+                    rowhead.createCell((short)5).setCellValue(new HSSFRichTextString("API Version"));
+                    rowhead.createCell((short)6).setCellValue(new HSSFRichTextString("SW Version"));
+                    FileOutputStream fileOut = new FileOutputStream(filename);
+                    workbook.write(fileOut);
+                    fileOut.close();
 
                 }
 
@@ -111,10 +120,8 @@ public class ControllingScript {
         File[] newFiles = newFile.listFiles();
 
         for(int i=0;i<newFiles.length;i++) {
-            //System.out.println("Inside for loop for fetching result file");
-            //System.out.println("Old File:"+newFiles[i].getName());
             Boolean fileYesNo=newFiles[i].getName().contains("IFTTTAutomationResults");
-            //System.out.println(fileYesNo);
+
             if (fileYesNo==true) {
 
                 resultFileName = newFiles[i].getName();
@@ -129,18 +136,6 @@ public class ControllingScript {
         SWVersion swv = new SWVersion();
         SWVersion = swv.getSWVersion();
 
-
-        // Whitelist Test case
-       /* Whitelist_UserFriendly wu = new Whitelist_UserFriendly();
-        wu.CheckUserFriendlyWL();*/
-
-        //Connection flow test case
-        //RemoteConnectionFlow rc = new RemoteConnectionFlow();
-        //rc.remoteConnection(driver);
-
-        //Individual Lights ON or OFF
-        /*IndividualLightONOFFTest Lonoff = new IndividualLightONOFFTest();
-        Lonoff.IndividualTestONorOFF(driver);*/
 
         //All Lights ON or OFF
 

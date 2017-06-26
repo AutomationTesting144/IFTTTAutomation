@@ -62,7 +62,7 @@ public class ColorChangeSingle
         WebElement abc2 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[975,1775][1124,1809]']"));
         abc2.click();
         //Scrolling down the page to get the search box
-        driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1026,1724][1074,1772]']"));
+//        driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1026,1724][1074,1772]']"));
         size = driver.manage().window().getSize();
 
         int starty = (int) (size.height * 0.80);
