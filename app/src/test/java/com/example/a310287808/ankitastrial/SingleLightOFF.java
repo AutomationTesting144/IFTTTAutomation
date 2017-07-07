@@ -91,7 +91,7 @@ public class SingleLightOFF {
         BridgeIndividualLightStateONOFF lOnOff = new BridgeIndividualLightStateONOFF();
         lightStatusReturned=lOnOff.stateONorOFF(output);
 
-        if(lightStatusReturned=="false"){
+        if(lightStatusReturned.equals("false")){
             Status = "1";
             ActualResult ="Light: "+lightName+" is turned OFF after posting status on Facebook";
             Comments = "NA";

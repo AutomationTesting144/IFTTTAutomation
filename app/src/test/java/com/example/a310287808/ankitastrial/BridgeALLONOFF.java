@@ -21,7 +21,6 @@ public class BridgeALLONOFF {
         JSONObject jsonObject1 = new JSONObject(newString);
         Object ob1 = jsonObject1.get("all_on");
         finalStatus = ob1.toString();
-
         return finalStatus;
 
     }

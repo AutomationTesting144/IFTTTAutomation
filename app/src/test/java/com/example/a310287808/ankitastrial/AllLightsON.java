@@ -44,6 +44,8 @@ public class AllLightsON {
     public String x;
     public String ActualResult;
     public String ExpectedResult;
+    public String AllLightIDs;
+    public String lightName;
 
     //*****For testing this functionality, an applet using gmail is already created in IFTTT, so whenever any new email is received, All the
     //****lights will be turned on
@@ -71,6 +73,7 @@ public class AllLightsON {
         //going back to the home screen
         driver.navigate().back();
         driver.navigate().back();
+        System.out.println("Waiting for few minutes for the mail applet to respond");
         TimeUnit.MINUTES.sleep(8);
         //Connecting with the API to fetch the status of the lights
         HttpURLConnection connection;
@@ -93,25 +96,30 @@ public class AllLightsON {
         String output = br.toString();
         //System.out.println(output);
 
+
+        LightIdsFromGroup0 AllLights=new LightIdsFromGroup0();
+        AllLightIDs=AllLights.LightIdsFromGroup0(output);
+        String[] Final = AllLightIDs.substring(1,AllLightIDs.length()-1).split(",");
+        HashMap<String,Integer> lightIDs = new HashMap<>();
+
+        for(int i=0;i<Final.length;i++) {
+            if (Final[i].length() < 4) {
+                String IDs=String.valueOf((Final[i].charAt(1)));
+                lightIDs.put(IDs,i);
+            } else {
+                String IDs=String.valueOf(Final[i].substring(1, 3));
+                lightIDs.put(IDs,i);
+            }
+        }
+
         BridgeALLONOFF ballonoff = new BridgeALLONOFF() ;
         lightStatusReturned= ballonoff.AllONOFFStatus(output);
 
-        HashMap<String,Integer> lightIDs = new HashMap<>();
-        lightIDs.put("26",1);
-        lightIDs.put("27",2);
-        lightIDs.put("28",3);
-        lightIDs.put("30",4);
-       // lightIDs.put("44",5);
-        lightIDs.put("46",6);
-        lightIDs.put("47",7);
-        lightIDs.put("48",8);
-        lightIDs.put("49",9);
-        lightIDs.put("50",10);
 
         //HashMap<String,Integer> FailedLights = new HashMap<>();
         StringBuffer sb = new StringBuffer();
 
-        if(lightStatusReturned=="true"){
+        if(lightStatusReturned.equals("true")){
             Status = "1";
             ActualResult = "All Lights turned ON";
             Comments = "NA";
@@ -148,7 +156,7 @@ public class AllLightsON {
                 Object ob =  jsonObject.get("state");
                 String newString = ob.toString();
                 Object lightNameObject = jsonObject.get("name");
-                String lightName = lightNameObject.toString();
+                lightName = lightNameObject.toString();
                 //System.out.println(lightName);
 
                 JSONObject jsonObject1 = new JSONObject(newString);
@@ -165,7 +173,7 @@ public class AllLightsON {
                 }
             }
             Status = "0";
-            ActualResult = "Following Lights are OFF:"+"\n"+sb.toString();
+            ActualResult = "Following Lights are OFF:"+"\n"+lightName;
             Comments = "FAIL:Lights are not turned ON after receiving new email";
             ExpectedResult= "All lights should be turned ON after receiving new email";
             System.out.println("Result: " + Status + "\n" + "Comment: " + Comments+ "\n"+"Actual Result: "+ActualResult+ "\n"+"Expected Result: "+ExpectedResult);

@@ -44,6 +44,7 @@ public class DimmingLights {
     public String x;
     public String ActualResult;
     public String ExpectedResult;
+    public String AllLightIDs;
 
     public void DimmingLights(AndroidDriver driver,String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException {
         driver.navigate().back();
@@ -51,7 +52,7 @@ public class DimmingLights {
         WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[234,198][390,316]']"));
         abc.click();
 
-        TimeUnit.MINUTES.sleep(1);
+        TimeUnit.SECONDS.sleep(30);
         //Making the connection with bridge as well as with API
         HttpURLConnection connection;
         finalURL = "http://" + IPAddress + "/" + HueUserName + "/" + HueBridgeParameterType;
@@ -75,18 +76,23 @@ public class DimmingLights {
         DimmingLightStatus DimStatus=new DimmingLightStatus();
         lightStatusReturned = DimStatus.DimmingLightStatus(output);
 
-        //Creating hashmap to store the light ids
+        LightIdsFromGroup0 AllLights=new LightIdsFromGroup0();
+        AllLightIDs=AllLights.LightIdsFromGroup0(output);
+
+        String[] Final = AllLightIDs.substring(1,AllLightIDs.length()-1).split(",");
+
         HashMap<String,Integer> lightIDs = new HashMap<>();
-        lightIDs.put("26",1);
-        lightIDs.put("27",2);
-        lightIDs.put("28",3);
-        lightIDs.put("30",4);
-      //  lightIDs.put("44",5);
-        lightIDs.put("46",6);
-        lightIDs.put("47",7);
-        lightIDs.put("48",8);
-        lightIDs.put("49",9);
-        lightIDs.put("50",10);
+
+        for(int i=0;i<Final.length;i++) {
+            if (Final[i].length() < 4) {
+                String IDs=String.valueOf((Final[i].charAt(1)));
+                lightIDs.put(IDs,i);
+            } else {
+                String IDs=String.valueOf(Final[i].substring(1, 3));
+                lightIDs.put(IDs,i);
+            }
+        }
+
 
         StringBuffer sb = new StringBuffer();
 

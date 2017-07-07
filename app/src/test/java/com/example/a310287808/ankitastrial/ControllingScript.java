@@ -16,7 +16,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidDriver;;
+
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -30,6 +31,7 @@ public class ControllingScript {
     public int Date;
     AndroidDriver driver;
     Dimension size;
+
     @Before
     public void setUp() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -41,7 +43,8 @@ public class ControllingScript {
         capabilities.setCapability("appActivity", "com.android.calculator2.Calculator");
         capabilities.setCapability("newCommandTimeout", "45000");
 
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
     }
@@ -139,35 +142,56 @@ public class ControllingScript {
 
         //All Lights ON or OFF
 
-        LightAddition addition=new LightAddition();
-        addition.LightAddition(driver, resultFileName,APIVersion,SWVersion);
+//        LightAddition addition=new LightAddition();
+//        addition.LightAddition(driver, resultFileName,APIVersion,SWVersion);
+//
+//        LightsNameChange NameChange=new LightsNameChange();
+//        NameChange.LightsNameChange(driver, resultFileName,APIVersion,SWVersion);
+//
+//        LightDelete delete=new LightDelete();
+//        delete.LightDelete(driver, resultFileName,APIVersion,SWVersion);
+//
+//        AllLightsON AllON = new AllLightsON();
+//        AllON.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
 
-        LightsNameChange NameChange=new LightsNameChange();
-        NameChange.LightsNameChange(driver, resultFileName,APIVersion,SWVersion);
+//        AllLightsOFF AllOFF = new AllLightsOFF();
+//        AllOFF.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
+////
+//        ColorChangeAll colorStatus=new ColorChangeAll();
+//        colorStatus.ColorChangeAll(driver, resultFileName,APIVersion,SWVersion);
+////
+//        DimmingLights DimLights=new DimmingLights();
+//        DimLights.DimmingLights(driver, resultFileName,APIVersion,SWVersion);
+//
+//        SingleLightOFF SingleOFF= new SingleLightOFF();
+//        SingleOFF.SingleOFF(driver, resultFileName,APIVersion,SWVersion);
+//
+//        SingleLightON SingleON= new SingleLightON();
+//        SingleON.SingleON(driver, resultFileName,APIVersion,SWVersion);
 
-        LightDelete delete=new LightDelete();
-        delete.LightDelete(driver, resultFileName,APIVersion,SWVersion);
+//        ColorChangeSingle SingleStatus=new ColorChangeSingle();
+//        SingleStatus.ColorChangeSingle(driver, resultFileName,APIVersion,SWVersion);
+//
+        GroupVerification Verify=new GroupVerification();
+        Verify.GroupVerification(driver, resultFileName,APIVersion,SWVersion);
+//
+//        GroupAddition create=new GroupAddition();
+//        create.GroupAddition(driver, resultFileName,APIVersion,SWVersion);
+//
+        GroupDeletion Delete=new GroupDeletion();
+        Delete.GroupDeletion(driver, resultFileName,APIVersion,SWVersion);
 
-        AllLightsON AllON = new AllLightsON();
-        AllON.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
+        GroupOn On=new GroupOn();
+        On.GroupOn(driver, resultFileName,APIVersion,SWVersion);
 
-        AllLightsOFF AllOFF = new AllLightsOFF();
-        AllOFF.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
+        GroupOff Off=new GroupOff();
+        Off.GroupOff(driver, resultFileName,APIVersion,SWVersion);
 
-        ColorChangeAll colorStatus=new ColorChangeAll();
-        colorStatus.ColorChangeAll(driver, resultFileName,APIVersion,SWVersion);
+        Group_AddLight AddLight=new Group_AddLight();
+        AddLight.Group_AddLight(driver, resultFileName,APIVersion,SWVersion);
 
-        DimmingLights DimLights=new DimmingLights();
-        DimLights.DimmingLights(driver, resultFileName,APIVersion,SWVersion);
-
-        SingleLightOFF SingleOFF= new SingleLightOFF();
-        SingleOFF.SingleOFF(driver, resultFileName,APIVersion,SWVersion);
-
-        SingleLightON SingleON= new SingleLightON();
-        SingleON.SingleON(driver, resultFileName,APIVersion,SWVersion);
-
-        ColorChangeSingle SingleStatus=new ColorChangeSingle();
-        SingleStatus.ColorChangeSingle(driver, resultFileName,APIVersion,SWVersion);
+        Group_DeleteLight DeleteLight=new Group_DeleteLight();
+        DeleteLight.Group_DeleteLight(driver, resultFileName,APIVersion,SWVersion);
 
 
     }

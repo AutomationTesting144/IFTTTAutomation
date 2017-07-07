@@ -24,6 +24,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 import io.appium.java_client.android.AndroidDriver;
 
 /**
@@ -59,10 +61,11 @@ public class ColorChangeSingle
         abc.click();
         // Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
-        WebElement abc2 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[975,1775][1124,1809]']"));
+        TimeUnit.SECONDS.sleep(5);
+        //Clicking on applet
+        WebElement abc2 = driver.findElement(By.xpath("//android.widget.TextView[@text='My Applets']"));
         abc2.click();
         //Scrolling down the page to get the search box
-//        driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1026,1724][1074,1772]']"));
         size = driver.manage().window().getSize();
 
         int starty = (int) (size.height * 0.80);
@@ -78,12 +81,12 @@ public class ColorChangeSingle
         // clicking on search box
         driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).click();
         //Entering the name of the applet created for testing the color changing functionality
-        driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).sendKeys("color on Hue color lamp 11");
+        driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).sendKeys("change color on Hue lamp 11");
         driver.findElement(By.id("com.ifttt.ifttt:id/applet_title")).click();
         //Clicking on the dit button to set the time at which the color will be changed
         driver.findElement(By.id("com.ifttt.ifttt:id/edit")).click();
-        WebElement abc1 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[288,1490][912,1524]']"));
-        abc1.click();
+        driver.findElement(By.xpath("//android.widget.TextView[@bounds='[288,1402][912,1436]']")).click();
+
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("android.view.View")));
         // getting the real time from system's time
         Calendar cal = Calendar.getInstance();

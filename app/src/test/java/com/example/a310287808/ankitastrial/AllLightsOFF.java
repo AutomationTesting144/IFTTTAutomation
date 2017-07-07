@@ -7,7 +7,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,6 +39,7 @@ public class AllLightsOFF {
     public String finalURL;
     public String finalURLIndLight;
     public String lightStatusReturned;
+    public String AllLightIDs;
     public String Status;
     public String Comments;
     public int lightCounter=0;
@@ -47,15 +47,17 @@ public class AllLightsOFF {
     public String ActualResult;
     public String ExpectedResult;
 
+
     // Widget for switching the lights OFF is already created in the device as a precondition. This code will click on the widget and check
 // whether all the lights which are connected to the bridge are switched off or not.
     public void AllLightsONorOFF(AndroidDriver driver,String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException {
         driver.navigate().back();
 
 // Clicking on the widget created in the device
-        WebElement abc = driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1002,1158][1158,1276]']"));
-        abc.click();
-        TimeUnit.SECONDS.sleep(20);
+        TimeUnit.SECONDS.sleep(2);
+       driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[1002,1158][1158,1276]']")).click();
+
+        TimeUnit.SECONDS.sleep(30);
 
         //Connecting with the API to fetch the status of the lights
         HttpURLConnection connection;
@@ -81,19 +83,35 @@ public class AllLightsOFF {
         BridgeALLONOFF ballonoff = new BridgeALLONOFF() ;
         lightStatusReturned= ballonoff.AllONOFFStatus(output);
 
+        LightIdsFromGroup0 AllLights=new LightIdsFromGroup0();
+        AllLightIDs=AllLights.LightIdsFromGroup0(output);
+
+       String[] Final = AllLightIDs.substring(1,AllLightIDs.length()-1).split(",");
+
         HashMap<String,Integer> lightIDs = new HashMap<>();
-        lightIDs.put("26",1);
-        lightIDs.put("27",2);
-        lightIDs.put("28",3);
-        lightIDs.put("30",4);
-       // lightIDs.put("44",5);
-        lightIDs.put("46",6);
-        lightIDs.put("47",7);
-        lightIDs.put("48",8);
-        lightIDs.put("49",9);
-        lightIDs.put("50",10);
 
+        for(int i=0;i<Final.length;i++) {
+            if (Final[i].length() < 4) {
+                String IDs=String.valueOf((Final[i].charAt(1)));
+                lightIDs.put(IDs,i);
+            } else {
+                String IDs=String.valueOf(Final[i].substring(1, 3));
+                lightIDs.put(IDs,i);
+            }
+        }
 
+//        HashMap<String,Integer> lightIDs = new HashMap<>();
+//        lightIDs.put("2",1);
+//        lightIDs.put("3",2);
+//        lightIDs.put("4",3);
+//        lightIDs.put("5",4);
+//        lightIDs.put("30",5);
+//        lightIDs.put("6",6);
+//        lightIDs.put("26",7);
+//        lightIDs.put("27",8);
+//        lightIDs.put("28",9);
+//
+//
         StringBuffer sb = new StringBuffer();
 
         if(lightStatusReturned=="false"){
@@ -113,7 +131,7 @@ public class AllLightsOFF {
 
                 finalURLIndLight = "http://" + IPAddress + "/" + HueUserName + "/" + HueBridgeIndLightType
                         +"/"+lights.getKey();
-                //System.out.println(finalURLIndLight);
+
 
                 URL url1 = new URL(finalURLIndLight);
                 connection = (HttpURLConnection) url1.openConnection();
@@ -132,14 +150,14 @@ public class AllLightsOFF {
                     br1.append(line1);
                 }
                 String output1 = br1.toString();
-                //System.out.println(output1);
+//                //System.out.println(output1);
                 JSONObject jsonObject = new JSONObject(output1);
                 Object ob =  jsonObject.get("state");
                 String newString = ob.toString();
                 Object lightNameObject = jsonObject.get("name");
                 String lightName = lightNameObject.toString();
-                //System.out.println(lightName);
-
+//                //System.out.println(lightName);
+//
                 JSONObject jsonObject1 = new JSONObject(newString);
                 Object ob1 = jsonObject1.get("on");
                 x=ob1.toString();

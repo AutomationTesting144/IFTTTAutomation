@@ -12,7 +12,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -86,6 +85,7 @@ public class LightsNameChange extends Activity {
         TimeUnit.SECONDS.sleep(5);
         //Entering aplication name
         driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).sendKeys("Hue" + "\n");
+        System.out.println("Waiting for few minutes for Addition/Deletion changes to be reflect on IFTTT");
         TimeUnit.MINUTES.sleep(8);
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Press a button to make your Hue lights color loop']")));
         //Clicking on the discovered applet

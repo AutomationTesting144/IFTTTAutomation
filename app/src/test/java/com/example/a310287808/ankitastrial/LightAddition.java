@@ -49,7 +49,7 @@ public class LightAddition extends Activity {
 
         driver.navigate().back();
         driver.navigate().back();
-        //Opening Hue applictaion
+        //Opening Hue application
         driver.findElement(By.xpath("//android.widget.TextView[@bounds='[24,1380][216,1572]']")).click();
         TimeUnit.SECONDS.sleep(2);
         //Clicking on settings button
@@ -152,6 +152,7 @@ public class LightAddition extends Activity {
         //Confirming the presence of applet
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Press a button to make your Hue lights color loop']")));
         //Selecting Applet
+        System.out.println("Waiting for few minutes for Addition/Deletion changes to be reflect on IFTTT");
         TimeUnit.MINUTES.sleep(8);
         driver.findElement(By.xpath("//android.widget.TextView[@text='Press a button to make your Hue lights color loop']")).click();
         //Clicking on edit button

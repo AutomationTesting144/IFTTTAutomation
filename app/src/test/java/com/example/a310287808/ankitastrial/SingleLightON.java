@@ -57,7 +57,7 @@ public class SingleLightON {
         //Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
         //Clicking on search button
-        WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[407,1775][493,1809]']"));
+        WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@text='Search']"));
         abc4.click();
         TimeUnit.SECONDS.sleep(5);
 

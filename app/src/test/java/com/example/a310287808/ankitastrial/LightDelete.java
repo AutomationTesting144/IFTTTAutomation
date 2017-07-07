@@ -78,6 +78,7 @@ public class LightDelete extends Activity{
             driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).sendKeys("Hue" + "\n");
             new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Press a button to make your Hue lights color loop']")));
             TimeUnit.MINUTES.sleep(8);
+            System.out.println("Waiting for few minutes for Addition/Deletion changes to be reflect on IFTTT");
             //Clicking on the discovered applet
             driver.findElement(By.xpath("//android.widget.TextView[@text='Press a button to make your Hue lights color loop']")).click();
             //clicking on the edit button
