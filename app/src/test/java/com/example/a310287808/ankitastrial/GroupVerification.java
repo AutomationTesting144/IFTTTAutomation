@@ -98,7 +98,8 @@ public class GroupVerification {
         while (driver.findElements(By.id("android:id/text1")).isEmpty()) {
             driver.findElement(By.id("com.ifttt.ifttt:id/spinner_arrow")).click();
         }
-       ((AndroidDriver) driver).findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\""+DeletedRoom+"\").instance(0))").isDisplayed();
+        System.out.println(DeletedRoom);
+       ((AndroidDriver) driver).findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"Bedroom\").instance(0))").isDisplayed();
         //Locate all drop down list elements
         iftttList = driver.findElements(By.id("android:id/text1"));
 
@@ -121,7 +122,8 @@ public class GroupVerification {
 
             }
         }
-
+        System.out.println("Counter is : " +notToTalkCounter);
+        System.out.println("Room list size is :" +RoomList.size());
         if(RoomList.size()==notToTalkCounter){
             Status = "1";
             ActualResult = "Same rooms are available in Hue applications and IFTTT";

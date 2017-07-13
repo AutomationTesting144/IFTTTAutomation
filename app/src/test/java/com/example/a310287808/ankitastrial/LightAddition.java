@@ -130,8 +130,6 @@ public class LightAddition extends Activity {
 
             }
         }
-
-             //System.out.println(setOfNewLights.toString());
             //Going back from Hue application to home screen
             driver.findElement(By.xpath("//android.widget.ImageButton[@bounds='[16,48][128,160]']")).click();
             driver.findElement(By.xpath("//android.widget.ImageView[@bounds='[126,184][174,232]']")).click();
@@ -142,13 +140,13 @@ public class LightAddition extends Activity {
         abc3.click();
         //Opening IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
-        WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[407,1775][493,1809]']"));
-        abc4.click();
+        TimeUnit.SECONDS.sleep(5);
+        driver.findElement(By.xpath("//android.widget.TextView[@text='Search']")).click();
         TimeUnit.SECONDS.sleep(5);
         //Clicking on search box
-        driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).click();
+        driver.findElement(By.xpath("//android.widget.TextView[@bounds='[407,1775][493,1809]']")).click();
         //Entering the name of application
-        driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).sendKeys("Hue" + "\n");
+        driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).sendKeys("Press a button to make your Hue lights color loop" + "\n");
         //Confirming the presence of applet
         new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Press a button to make your Hue lights color loop']")));
         //Selecting Applet

@@ -31,7 +31,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class Group_DeleteLight {
     public String IPAddress = "192.168.86.21/api";
     public String HueUserName = "DtPRqP9ZCbVK0sradKByhPs3BwlIfR5bNX9zamFk";
-    public String HueBridgeParameterType = "lights/30";
+    public String HueBridgeParameterType = "lights/27";
     public String StrMin;
     public String StrHrs;
     public String TimeSys1;
@@ -63,7 +63,7 @@ public class Group_DeleteLight {
         driver.findElement(By.id("com.philips.lighting.hue2:id/list_item_left_icon")).click();
         TimeUnit.SECONDS.sleep(2);
 
-        driver.findElement(By.xpath("//android.widget.TextView[@text='Hue color lamp 58']")).click();
+        driver.findElement(By.xpath("//android.widget.TextView[@text='Hue color lamp 57']")).click();
         TimeUnit.SECONDS.sleep(2);
         //Saving the light in Bedroom
         driver.findElement(By.id("com.philips.lighting.hue2:id/save")).click();

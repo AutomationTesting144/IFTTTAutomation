@@ -51,6 +51,7 @@ public class GroupOff {
     public String ExpectedResult;
     Dimension size;
 
+
     public void GroupOff(AndroidDriver driver, String fileName, String APIVersion, String SWVersion) throws IOException, JSONException, InterruptedException {
 //Getting the state of group from API
         driver.navigate().back();
@@ -77,7 +78,7 @@ public class GroupOff {
         Object ob1 = jsonObject1.get("all_on");
         System.out.println(ob1);
 
-        //If the lights in the group are already ON then turn them off
+        //If the lights in the group are already OFF then turn them on
         if (ob1.toString()=="false")
         {
             URL url1 = new URL("http://192.168.86.21/api/FgwTGpJneMTWtudw0G1VMBPKXbLZCk5Q8Trwuved/groups/2/action");
@@ -98,20 +99,22 @@ public class GroupOff {
         //Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
         TimeUnit.SECONDS.sleep(5);
-        //Clicking on applet button
-        WebElement abc2 = driver.findElement(By.xpath("//android.widget.TextView[@bounds='[975,1775][1124,1809]']"));
+        //Clicking on applet
+        WebElement abc2 = driver.findElement(By.xpath("//android.widget.TextView[@text='My Applets']"));
         abc2.click();
         //Scrolling down the page to get the search box
         size = driver.manage().window().getSize();
+
         int starty = (int) (size.height * 0.80);
         //Find endy point which is at top side of screen.
         int endy = (int) (size.height * 0.20);
         //Find horizontal point where you wants to swipe. It is in middle of screen width.
         int startx = size.width / 2;
+
+
         //Swipe from Top to Bottom.
         driver.swipe(startx, endy, startx, starty, 3000);
         Thread.sleep(2000);
-        TimeUnit.SECONDS.sleep(5);
         // clicking on search box
         driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).click();
         //Entering the name of the applet created for testing the color changing functionality
@@ -188,6 +191,7 @@ public class GroupOff {
             while ((line1 = reader1.readLine()) != null) {
                 br.append(line1);
             }
+
             String output = br.toString();
             //System.out.println(output);
             Calendar cal1 = Calendar.getInstance();
@@ -204,7 +208,30 @@ public class GroupOff {
 
         } while(TimeSys1.equals(TimeCode)==false);
 
-        if (ob1.toString().equals("false"))
+        finalURL = "http://" + IPAddress + "/" + HueUserName + "/" + HueBridgeParameterType;
+        URL url1 = new URL(finalURL);
+        connection = (HttpURLConnection) url1.openConnection();
+        connection.connect();
+
+        InputStream stream1 = connection.getInputStream();
+
+        BufferedReader reader1 = new BufferedReader(new InputStreamReader(stream1));
+
+        br = new StringBuffer();
+
+        String line1 = " ";
+        while ((line1 = reader1.readLine()) != null) {
+            br.append(line1);
+        }
+        String output_Final = br.toString();
+        JSONObject jsonObject_Final = new JSONObject(output_Final);
+
+        Object ob_Final = jsonObject_Final.get("state");
+        String newString_Final = ob_Final.toString();
+        JSONObject jsonObject1_Final = new JSONObject(newString_Final);
+        Object ob1_Final = jsonObject1_Final.get("all_on");
+
+        if (ob1_Final.toString().equals("false"))
 
         {
             Status = "1";

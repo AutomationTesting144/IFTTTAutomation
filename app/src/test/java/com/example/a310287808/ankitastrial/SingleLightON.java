@@ -56,11 +56,9 @@ public class SingleLightON {
         abc.click();
         //Clicking on IFTTT application
         driver.findElement(By.xpath("//android.widget.TextView[@text='IFTTT']")).click();
-        //Clicking on search button
-        WebElement abc4 = driver.findElement(By.xpath("//android.widget.TextView[@text='Search']"));
-        abc4.click();
         TimeUnit.SECONDS.sleep(5);
-
+        driver.findElement(By.xpath("//android.widget.TextView[@text='Search']")).click();
+        TimeUnit.SECONDS.sleep(5);
         driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).click();
         //entering applet name
         driver.findElement(By.id("com.ifttt.ifttt:id/boxed_edit_text")).sendKeys("Turn your lights on every day at a certain time" + "\n");

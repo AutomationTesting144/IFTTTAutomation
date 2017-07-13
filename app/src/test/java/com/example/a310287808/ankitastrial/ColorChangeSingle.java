@@ -81,7 +81,7 @@ public class ColorChangeSingle
         // clicking on search box
         driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).click();
         //Entering the name of the applet created for testing the color changing functionality
-        driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).sendKeys("change color on Hue lamp 11");
+        driver.findElement(By.id("com.ifttt.ifttt:id/my_applets_search")).sendKeys("change color on Testing Lamp");
         driver.findElement(By.id("com.ifttt.ifttt:id/applet_title")).click();
         //Clicking on the dit button to set the time at which the color will be changed
         driver.findElement(By.id("com.ifttt.ifttt:id/edit")).click();

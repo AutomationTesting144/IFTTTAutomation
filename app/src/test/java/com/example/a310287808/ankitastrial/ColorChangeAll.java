@@ -58,7 +58,7 @@ public class ColorChangeAll {
         driver.findElement(By.id("com.ifttt.ifttt:id/note_creation_icon")).click();
         WebElement abc1 = driver.findElement(By.xpath("//android.widget.ImageButton[@bounds='[16,48][128,176]']"));
         abc1.click();
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(30);
 
         HttpURLConnection connection;
 
@@ -102,12 +102,12 @@ public class ColorChangeAll {
 
         StringBuffer sb = new StringBuffer();
 
-        String Xval=lightStatusReturned.substring(1,6);
-        String Yval=lightStatusReturned.substring(7,12);
-//        System.out.println(Xval);
-//        System.out.println(Yval);
-        String Xred="0.675";
-        String Yred="0.322";
+        String Xval=lightStatusReturned.substring(1,5);
+        String Yval=lightStatusReturned.substring(8,12);
+        System.out.println(Xval);
+        System.out.println(Yval);
+        String Xred="0.67";
+        String Yred="0.32";
 
         boolean finalResult=(Xval.equals(Xred)) && (Yval.equals(Yred));
         if (finalResult==true){

@@ -142,41 +142,41 @@ public class ControllingScript {
 
         //All Lights ON or OFF
 
-//        LightAddition addition=new LightAddition();
-//        addition.LightAddition(driver, resultFileName,APIVersion,SWVersion);
-//
-//        LightsNameChange NameChange=new LightsNameChange();
-//        NameChange.LightsNameChange(driver, resultFileName,APIVersion,SWVersion);
-//
-//        LightDelete delete=new LightDelete();
-//        delete.LightDelete(driver, resultFileName,APIVersion,SWVersion);
-//
-//        AllLightsON AllON = new AllLightsON();
-//        AllON.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
+        LightAddition addition=new LightAddition();
+        addition.LightAddition(driver, resultFileName,APIVersion,SWVersion);
 
-//        AllLightsOFF AllOFF = new AllLightsOFF();
-//        AllOFF.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
-////
-//        ColorChangeAll colorStatus=new ColorChangeAll();
-//        colorStatus.ColorChangeAll(driver, resultFileName,APIVersion,SWVersion);
-////
-//        DimmingLights DimLights=new DimmingLights();
-//        DimLights.DimmingLights(driver, resultFileName,APIVersion,SWVersion);
-//
-//        SingleLightOFF SingleOFF= new SingleLightOFF();
-//        SingleOFF.SingleOFF(driver, resultFileName,APIVersion,SWVersion);
-//
-//        SingleLightON SingleON= new SingleLightON();
-//        SingleON.SingleON(driver, resultFileName,APIVersion,SWVersion);
+        LightsNameChange NameChange=new LightsNameChange();
+        NameChange.LightsNameChange(driver, resultFileName,APIVersion,SWVersion);
 
-//        ColorChangeSingle SingleStatus=new ColorChangeSingle();
-//        SingleStatus.ColorChangeSingle(driver, resultFileName,APIVersion,SWVersion);
+        LightDelete delete=new LightDelete();
+        delete.LightDelete(driver, resultFileName,APIVersion,SWVersion);
+
+        AllLightsON AllON = new AllLightsON();
+        AllON.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
+
+        AllLightsOFF AllOFF = new AllLightsOFF();
+        AllOFF.AllLightsONorOFF(driver, resultFileName,APIVersion,SWVersion);
 //
+        ColorChangeAll colorStatus=new ColorChangeAll();
+        colorStatus.ColorChangeAll(driver, resultFileName,APIVersion,SWVersion);
+
+        DimmingLights DimLights=new DimmingLights();
+        DimLights.DimmingLights(driver, resultFileName,APIVersion,SWVersion);
+
+        SingleLightOFF SingleOFF= new SingleLightOFF();
+        SingleOFF.SingleOFF(driver, resultFileName,APIVersion,SWVersion);
+
+        SingleLightON SingleON= new SingleLightON();
+        SingleON.SingleON(driver, resultFileName,APIVersion,SWVersion);
+
+        ColorChangeSingle SingleStatus=new ColorChangeSingle();
+        SingleStatus.ColorChangeSingle(driver, resultFileName,APIVersion,SWVersion);
+
         GroupVerification Verify=new GroupVerification();
         Verify.GroupVerification(driver, resultFileName,APIVersion,SWVersion);
 //
-//        GroupAddition create=new GroupAddition();
-//        create.GroupAddition(driver, resultFileName,APIVersion,SWVersion);
+        GroupAddition create=new GroupAddition();
+        create.GroupAddition(driver, resultFileName,APIVersion,SWVersion);
 //
         GroupDeletion Delete=new GroupDeletion();
         Delete.GroupDeletion(driver, resultFileName,APIVersion,SWVersion);
