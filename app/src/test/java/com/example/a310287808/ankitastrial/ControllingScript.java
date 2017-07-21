@@ -162,37 +162,37 @@ public class ControllingScript {
 
         DimmingLights DimLights=new DimmingLights();
         DimLights.DimmingLights(driver, resultFileName,APIVersion,SWVersion);
-
-        SingleLightOFF SingleOFF= new SingleLightOFF();
-        SingleOFF.SingleOFF(driver, resultFileName,APIVersion,SWVersion);
-
-        SingleLightON SingleON= new SingleLightON();
-        SingleON.SingleON(driver, resultFileName,APIVersion,SWVersion);
-
-        ColorChangeSingle SingleStatus=new ColorChangeSingle();
-        SingleStatus.ColorChangeSingle(driver, resultFileName,APIVersion,SWVersion);
-
-        GroupVerification Verify=new GroupVerification();
-        Verify.GroupVerification(driver, resultFileName,APIVersion,SWVersion);
 //
-        GroupAddition create=new GroupAddition();
-        create.GroupAddition(driver, resultFileName,APIVersion,SWVersion);
+//        SingleLightOFF SingleOFF= new SingleLightOFF();
+//        SingleOFF.SingleOFF(driver, resultFileName,APIVersion,SWVersion);
 //
-        GroupDeletion Delete=new GroupDeletion();
-        Delete.GroupDeletion(driver, resultFileName,APIVersion,SWVersion);
-
-        GroupOn On=new GroupOn();
-        On.GroupOn(driver, resultFileName,APIVersion,SWVersion);
-
-        GroupOff Off=new GroupOff();
-        Off.GroupOff(driver, resultFileName,APIVersion,SWVersion);
-
-        Group_AddLight AddLight=new Group_AddLight();
-        AddLight.Group_AddLight(driver, resultFileName,APIVersion,SWVersion);
-
-        Group_DeleteLight DeleteLight=new Group_DeleteLight();
-        DeleteLight.Group_DeleteLight(driver, resultFileName,APIVersion,SWVersion);
-
+//        SingleLightON SingleON= new SingleLightON();
+//        SingleON.SingleON(driver, resultFileName,APIVersion,SWVersion);
+//
+//        ColorChangeSingle SingleStatus=new ColorChangeSingle();
+//        SingleStatus.ColorChangeSingle(driver, resultFileName,APIVersion,SWVersion);
+//
+//        GroupVerification Verify=new GroupVerification();
+//        Verify.GroupVerification(driver, resultFileName,APIVersion,SWVersion);
+////
+//        GroupAddition create=new GroupAddition();
+//        create.GroupAddition(driver, resultFileName,APIVersion,SWVersion);
+////
+//        GroupDeletion Delete=new GroupDeletion();
+//        Delete.GroupDeletion(driver, resultFileName,APIVersion,SWVersion);
+//
+//        GroupOn On=new GroupOn();
+//        On.GroupOn(driver, resultFileName,APIVersion,SWVersion);
+//
+//        GroupOff Off=new GroupOff();
+//        Off.GroupOff(driver, resultFileName,APIVersion,SWVersion);
+//
+//        Group_AddLight AddLight=new Group_AddLight();
+//        AddLight.Group_AddLight(driver, resultFileName,APIVersion,SWVersion);
+//
+//        Group_DeleteLight DeleteLight=new Group_DeleteLight();
+//        DeleteLight.Group_DeleteLight(driver, resultFileName,APIVersion,SWVersion);
+//
 
     }
 

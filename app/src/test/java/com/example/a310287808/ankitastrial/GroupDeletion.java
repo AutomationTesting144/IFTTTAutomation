@@ -154,7 +154,7 @@ public class GroupDeletion {
             ,String resultAPIVersion, String resultSWVersion) throws IOException {
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
-        java.text.SimpleDateFormat sdf  = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS aa");
+        java.text.SimpleDateFormat sdf  = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         CurrentdateTime = sdf.format(cal.getTime());
         FileInputStream fsIP = new FileInputStream(new File("C:\\Users\\310287808\\AndroidStudioProjects\\AnkitasTrial\\" + resultFileName));
         HSSFWorkbook workbook = new HSSFWorkbook(fsIP);
